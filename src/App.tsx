@@ -24,14 +24,22 @@ function App() {
         {id:1, title: "CSS", isDone: true},
         {id:2, title: "JS", isDone: true},
         {id:3, title: "React", isDone: false},
-        {id:4, title: "Redux", isDone: false}
+        {id:4, title: "Redux", isDone: false},
     ]);
+
+    function addTask(newTask: any) {
+       let tasksCopy = tasks
+        tasksCopy.push(newTask)
+        setTasks(tasksCopy)
+    }
+    console.log(tasks)
     let [filter, setFilter] = useState<FilterValuesType>('all');
 
     function removeTask(id: number ) {
         let filteredTasks = tasks.filter( t => t.id !== id )
         setTasks(filteredTasks);
     }
+
 
     function changeFilter (value: FilterValuesType) {
         setFilter(value);
@@ -51,7 +59,15 @@ function App() {
                       tasks={tasksForTodolist}
                       removeTask={removeTask}
                       changeFilter={changeFilter}
+                      addTask={addTask}
+
             />
+            <ToDoList title={'lessons 2'} tasks={tasksForTodolist}
+                      removeTask={removeTask}
+                      changeFilter={changeFilter}
+                      addTask={addTask}
+            />
+
         </div>
     );
 }

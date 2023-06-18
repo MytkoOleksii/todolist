@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {type} from "os";
 import {FilterValuesType} from "./App";
 
@@ -6,6 +6,7 @@ export type  TaskType ={
     id: number
     title: string
     isDone: boolean
+
 }
 
 type PropsType = {
@@ -13,15 +14,30 @@ type PropsType = {
     tasks: Array<TaskType>
     removeTask: (id: number) => void
     changeFilter: (value: FilterValuesType) => void
+    addTask: (newTask: any) => any
+
 }
 
 export function ToDoList(props:PropsType) {
+    let[text, setText] = useState<string | null>(null)
+    function newText (text: string) {
+        if (text.length > 0){
+            let new77 = {
+                id: props.tasks.length + 1,
+                title: text,
+                isDone: false
+            }
+            setText('')
+        return new77
+        } //else  { alert('You need write name tasks')}
+    }
+
     return (
         <div className={'App'}>
             <h1>{props.title}</h1>
             <div>
-                <input/>
-                <button>+</button>
+                <input type={"text"} onChange={(event)=> setText(event.target.value)} value={text as string} />
+                <button onClick={()=> props.addTask(newText(text as string))}>+</button>
             </div>
             <ul>
                 {
