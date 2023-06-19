@@ -29,9 +29,8 @@ function App() {
     ]);
 
     function addTask(textInput: any) {
-        // let tasksCopy = tasks
         //  tasksCopy.push(newTask)
-        if (textInput.length > 0) {
+     /*   if (textInput.length > 0) {
             let newTask = {
                 // id: props.tasks.length + 1,
                 id: v1(),
@@ -42,7 +41,15 @@ function App() {
             setTasks(tasksCopy)
         } else {
             alert('You need write name tasks')
-        }
+
+        }*/
+            let newTask = {
+                id: v1(),
+                title: textInput,
+                isDone: false
+            }
+            let tasksCopy = [newTask, ...tasks]
+            setTasks(tasksCopy)
     }
     console.log(tasks)
     let [filter, setFilter] = useState<FilterValuesType>('all');
@@ -64,6 +71,22 @@ function App() {
         tasksForTodolist = tasks.filter(t => t.isDone === false);
     }
 
+    function  changeStatus(taskId: string, isDone: boolean) {
+       /* let task = tasks.find( (t) => {
+            if (t.id === taskId) {
+            } else {
+                return false
+            }
+        });*/
+        let task = tasks.find( t => t.id === taskId)
+        if (task) {
+            task.isDone = isDone
+        }
+
+        let copyTasks = [...tasks]
+        setTasks(copyTasks)
+    }
+
     return (
         <div className="App">
             <ToDoList title={'Lessons 1'}
@@ -72,6 +95,8 @@ function App() {
                       changeFilter={changeFilter}
                       addTask={addTask}
                       setTasks={setTasks}
+                      changeStatus={changeStatus}
+                      filter={filter}
             />
             <ToDoList title={'lessons 2'}
                       tasks={tasksForTodolist}
@@ -79,6 +104,9 @@ function App() {
                       changeFilter={changeFilter}
                       addTask={addTask}
                       setTasks={setTasks}
+                      changeStatus={changeStatus}
+                      filter={filter}
+
             />
         </div>
     );
