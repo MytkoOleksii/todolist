@@ -1,66 +1,77 @@
-import React, {useState} from "react";
-import {type} from "os";
-import {FilterValuesType} from "./App";
+import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 
-export type  TaskType ={
-    id: number
+export type  TaskType = {
+    id: string
     title: string
     isDone: boolean
-
 }
-
 type PropsType = {
-    title : string
+    title: string
     tasks: Array<TaskType>
-    removeTask: (id: number) => void
-    changeFilter: (value: FilterValuesType) => void
+    removeTask: (id: string) => void
+    // changeFilter: (value: FilterValuesType) => void
+    changeFilter: Function
     addTask: (newTask: any) => any
-
+    setTasks: Function
 }
-
-export function ToDoList(props:PropsType) {
-    let[text, setText] = useState<string | null>(null)
-    function newText (text: string) {
-        if (text.length > 0){
-            let new77 = {
-                id: props.tasks.length + 1,
-                title: text,
-                isDone: false
-            }
-            setText('')
-        return new77
-        } //else  { alert('You need write name tasks')}
-    }
-
+export function ToDoList(props: PropsType) {
+    let [textInput, setTextInput] = useState<string | null>(null)
+    // Обработка ввода текста
+    const onNewTitleChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setTextInput(event.currentTarget.value)
+    };
+    // Обработка нажатия ентер
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.charCode == 13) {
+            props.addTask(textInput as string)
+            setTextInput('')
+        }
+    };
+    // Отправка на добавление новой задачи
+    const addTask = () => {
+        props.addTask(textInput as string)
+        setTextInput('')
+    };
+    //Фильтрация
+    const onAllClickHandler = () => props.changeFilter('all');
+    const onActiveClickHandler = () => props.changeFilter('active');
+    const onCompletedClickHandler = () => props.changeFilter('completed');
     return (
         <div className={'App'}>
             <h1>{props.title}</h1>
             <div>
-                <input type={"text"} onChange={(event)=> setText(event.target.value)} value={text as string} />
-                <button onClick={()=> props.addTask(newText(text as string))}>+</button>
+                {/*<input type={"text"} onChange={(event)=> setTextInput(event.target.value)} value={textInput as string} />*/}
+                <input type={"text"} value={textInput as string}
+                       onKeyPress={onKeyPressHandler}
+                       onChange={onNewTitleChangeHandler}/>
+                <button onClick={addTask}>+</button>
             </div>
             <ul>
                 {
-                    props.tasks.map( (t) => {
-                        return <li><input type={'checkbox'} checked={t.isDone}/>
-                            <span>{t.title}</span>
-                            <button onClick={ function () {props.removeTask(t.id) }}>x</button>
-                        </li>
+                    props.tasks.map((t) => {
+                        function onRemoveHandler() {
+                            props.removeTask(t.id)
+                        }
+
+                        return (
+                            <li key={t.id}>
+                                <input type={'checkbox'}
+                                       checked={t.isDone}
+                                       onChange={() => (t.isDone ? t.isDone = false : t.isDone = true)}/>
+                                <span>{t.title}</span>
+                                <button onClick={onRemoveHandler}>x</button>
+                            </li>
+                        )
                     })
                 }
-              {/*
-                <li><input type={'checkbox'} checked={props.tasks[0].isDone}/><span>{props.tasks[0].title}</span></li>
-                <li><input type={'checkbox'} checked={props.tasks[1].isDone}/><span>{props.tasks[1].title}</span></li>
-                <li><input type={'checkbox'} checked={props.tasks[2].isDone}/><span>{props.tasks[2].title}</span></li>
-          */}
             </ul>
             <div>
-                <button onClick={ ()=> { props.changeFilter('all')}} >All</button>
-                <button onClick={ ()=> { props.changeFilter('active')}} >Active</button>
-                <button onClick={ ()=> { props.changeFilter('completed')}} >Completed</button>
+                <button onClick={onAllClickHandler}>All</button>
+                <button onClick={onActiveClickHandler}>Active</button>
+                <button onClick={onCompletedClickHandler}>Completed</button>
             </div>
         </div>
     )
 }
 
-export default ToDoList ;
+export default ToDoList;
