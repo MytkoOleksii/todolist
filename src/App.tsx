@@ -3,6 +3,7 @@ import './App.css';
 import {ToDoList} from "./ToDoList";
 import {TaskType} from "./ToDoList";
 import {v1} from "uuid";
+import {AddItemForm} from "./AddItemForm";
 
 export  type  FilterValuesType = 'all' | 'completed' | 'active';
 
@@ -10,6 +11,10 @@ export  type TodoListType = {
     id: string
     title: string
     filter: FilterValuesType
+}
+
+type TaskStateType = {
+    [key: string] : Array<TaskType>
 }
 
 function App() {
@@ -93,8 +98,7 @@ function App() {
         delete tasksObj[todolistId]
             setTasksObj({...tasksObj})
     }
-
-    let [tasksObj, setTasksObj] = useState({
+    let [tasksObj, setTasksObj] = useState<TaskStateType>({
         [todoListID1]: [
             {id: v1(), title: "CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
@@ -109,9 +113,18 @@ function App() {
         ],
     });
 
+    function addTodolist (title: string) {
+        let newTodolist: TodoListType = { // Создание нового туду листа
+            id: v1(),
+            filter: 'all',
+            title: title,
+        }
+        setTodoList([newTodolist, ...todoLists])
+        setTasksObj({...tasksObj, [newTodolist.id]: [] }) // Взять старый и добавить новый список дел
+    }
     return (
         <div className="App">
-
+            <AddItemForm addItem={addTodolist }  />
             {
                 todoLists.map((tdl) => {
 
@@ -122,7 +135,6 @@ function App() {
                     if (tdl.filter === 'active') {
                         tasksForTodolist = tasksObj[tdl.id].filter(t => t.isDone === false);
                     }
-
                     return <ToDoList key={tdl.id}
                                      title={tdl.title}
                                      id={tdl.id}
