@@ -37,10 +37,10 @@ function App() {
     let todoListID2 = v1()
 
     let [todoLists, setTodoList] = useState<Array<TodoListType>>([
-        {id: todoListID1, title: 'Lessons1', filter: 'active'},
-        {id: todoListID2, title: 'Lessons2', filter: 'completed'}
+        {id: todoListID1, title: 'Lessons1', filter: 'all'},
+        {id: todoListID2, title: 'Lessons2', filter: 'all'},
     ]);
-    function addTask(textInput: any, todolistId: string) {
+    function addTaskToArray(textInput: any, todolistId: string) {
         //  tasksCopy.push(newTask)
         /*   if (textInput.length > 0) {
                let newTask = {
@@ -113,14 +113,14 @@ function App() {
         ],
     });
 
-    function addTodolist (title: string) {
+    function addTodolist (textInput: string) {
         let newTodolist: TodoListType = { // Создание нового туду листа
             id: v1(),
             filter: 'all',
-            title: title,
+            title: textInput,
         }
-        setTodoList([newTodolist, ...todoLists])
-        setTasksObj({...tasksObj, [newTodolist.id]: [] }) // Взять старый и добавить новый список дел
+        setTodoList([newTodolist, ...todoLists]) // Взять старый и добавить новый todolist
+        setTasksObj({...tasksObj, [newTodolist.id]: [] }) // Взять старый(копию) и добавить новый список дел
     }
     return (
         <div className="App">
@@ -141,7 +141,7 @@ function App() {
                                      tasks={tasksForTodolist}
                                      removeTask={removeTask}
                                      changeFilter={changeFilter}
-                                     addTask={addTask}
+                                     addTaskToArray={addTaskToArray}
                                      setTasks={setTasksObj}
                                      changeStatus={changeStatus}
                                      filter={tdl.filter}

@@ -1,7 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 
 type AddItemFormsPropsType = {
-    addItem: (newTask: any) => any
+    addItem: (textInput: string) => void
 }
 
 export function AddItemForm(props: AddItemFormsPropsType) {
