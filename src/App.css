@@ -6,6 +6,8 @@
 
 .App > div {
   margin-right: 20px;
+  border: black 1px solid;
+  margin: 5px
 }
 
 .error {
