@@ -1,4 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import {Button, IconButton, TextField} from "@mui/material";
+import {AddCircleOutlineOutlined, AddCircleTwoTone} from "@mui/icons-material";
 
 type AddItemFormsPropsType = {
     addItem: (newTask: any) => any
@@ -32,13 +34,28 @@ export function AddItemForm(props: AddItemFormsPropsType) {
     return (
         <div>
             {/*<input type={"text"} onChange={(event)=> setTextInput(event.target.value)} value={textInput as string} />*/}
-            <input type={"text"} value={textInput as string}
+          {/*  <input type={"text"} value={textInput as string}
                    onKeyPress={onKeyPressHandler}
                    onChange={onNewTitleChangeHandler}
                    className={error ? 'error' : ''}
+            />*/}
+            <TextField
+                type={"text"} value={textInput as string}
+                onKeyPress={onKeyPressHandler}
+                onChange={onNewTitleChangeHandler}
+                error={!!error}
+                helperText={error}
+
+                id="outlined-multiline-flexible"
+                label="Write task"
+                multiline
+                maxRows={4}
+                size={'small'}
             />
-            <button onClick={addTask}>+</button>
-            {error && <div className={'error-messages'}>{error}</div>}
+          {/*  <Button variant="contained" color={'primary'} size={'medium'} onClick={addTask}>+</Button>*/}
+            <IconButton onClick={addTask} color={'primary'} size={"large"}  ><AddCircleOutlineOutlined fontSize={"inherit"}/></IconButton>
+
+            {/* {error && <div className={'error-messages'}>{error}</div>} // заменил helpertext */}
         </div>
     )
 }
