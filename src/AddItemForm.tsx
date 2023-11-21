@@ -16,7 +16,7 @@ export function AddItemForm(props: AddItemFormsPropsType) {
     // Обработка нажатия ентер
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => { //
         setError('')
-        if (e.charCode == 13) {
+        if (e.charCode == 13 && textInput?.trim() !== '') {
             props.addItem(textInput as string)
             setTextInput('')
         }

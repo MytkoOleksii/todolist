@@ -39,7 +39,7 @@ type TaskStateType = {
 }
 
 
-function App() {
+function App2() {
 
 
 
@@ -175,7 +175,7 @@ function App() {
              if (t.id === taskId) {
              } else {
                  return false
-             }
+             }`
          });*/
         let tasks = tasksObj[todolistId]; // Достаем нужный массив
         let task = tasks.find(t => t.id === taskId)
@@ -324,4 +324,4 @@ function App() {
     );
 }
 
-export default App;
+//export default App2;
