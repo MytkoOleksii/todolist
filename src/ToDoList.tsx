@@ -3,6 +3,7 @@ import {FilterValuesType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {Button, Checkbox, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
+import {EditableSpan} from "./EditableSpan";
 
 export type  TaskType = {
     id: string
@@ -70,6 +71,7 @@ export function ToDoList(props: PropsType) {
                                     sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
                                 />
                                 {/*  onChange={() => (t.isDone ? t.isDone = false : t.isDone = true)}/>*/}
+                                <EditableSpan title={t.title} editMode={} onChangeNewValue={}/>
                                 <span>{t.title}</span>
                                 {/*<button onClick={onRemoveHandler}>x</button>*/}
                                 <IconButton aria-label="delete" onClick={onRemoveHandler}>
