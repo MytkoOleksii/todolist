@@ -23,6 +23,7 @@ type PropsType = {
     id: string
     removeTodoList: (todolistId: string) => void
     changeTodolistTitle:  (id: string, newTitle: string) => void
+    changeTaskTitle: (id: string, newValueTitle: string, todoListId: string) => void
 }
 
 export function ToDoList(props: PropsType) {
@@ -44,8 +45,10 @@ export function ToDoList(props: PropsType) {
 
     return (
         <div className={'App'}>
-            <h1>{props.title}
-               {/* <button onClick={removeTodoList}>x</button>*/}
+            <h1><EditableSpan title={props.title} editMode={false}
+                              onChangeNewValue={changeTodolistTitle}></EditableSpan>
+
+                {/* <button onClick={removeTodoList}>x</button>*/}
                 <IconButton aria-label="delete" onClick={removeTodoList}>
                     <Delete />
                 </IconButton>
@@ -63,6 +66,12 @@ export function ToDoList(props: PropsType) {
                             props.changeStatus(t.id, event.currentTarget.checked, props.id)
                         }
 
+                        function onChangeNewTitle(newValueTitle: string) {
+                            // console.log( t.id + event.currentTarget.checked )
+                            props.changeTaskTitle(t.id, newValueTitle, props.id)
+                        }
+
+
                         return (
                             <div key={t.id} className={t.isDone ? 'is-done' : ''}>
                               {/*  <input type={'checkbox'}
@@ -76,8 +85,8 @@ export function ToDoList(props: PropsType) {
                                     sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
                                 />
                                 {/*  onChange={() => (t.isDone ? t.isDone = false : t.isDone = true)}/>*/}
-                                <EditableSpan title={t.title} editMode={false} onChangeNewValue={changeTodolistTitle}/>
-                                <span>{t.title}</span>
+                                <EditableSpan title={t.title} editMode={true} onChangeNewValue={onChangeNewTitle}/>
+
                                 {/*<button onClick={onRemoveHandler}>x</button>*/}
                                 <IconButton aria-label="delete" onClick={onRemoveHandler}>
                                     <Delete />

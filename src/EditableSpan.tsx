@@ -1,4 +1,5 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, KeyboardEventHandler, useState} from "react";
+import {TextField} from "@mui/material";
 
 type EditableSpanPropsType = {
     title: string
@@ -19,10 +20,32 @@ export function EditableSpan(props: EditableSpanPropsType) {
         setEditMode(false)
         props.onChangeNewValue(localTitle)
     }
-    const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => setLocalTitle(e.currentTarget.value)
+    const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement> ) => setLocalTitle(e.currentTarget.value)
+
+    // Обработка нажатия ентер
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => { //
+
+        if (e.charCode == 13 && localTitle?.trim() !== '') {
+            activateViewMode()
+
+        }
+    };
     return (
         editMode
-            ? <input value={localTitle} onChange={onChangeTitleHandler} onBlur={activateViewMode} autoFocus/>
+            ? <TextField
+                type={"text"} value={localTitle}
+                onKeyPress={onKeyPressHandler}
+                onChange={onChangeTitleHandler}
+                onBlur={activateViewMode}
+
+                autoFocus
+
+                id="outlined-multiline-flexible"
+                label="Write task"
+                multiline
+                maxRows={4}
+                size={'small'}
+            />
             : <span onDoubleClick={activateEditMode}>{props.title}</span>
     )
 }

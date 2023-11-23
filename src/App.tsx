@@ -130,6 +130,25 @@ function App() {
         setTasksObj({...tasksObj, [newTodolist.id]: []}) // Взять старый и добавить новый список дел
     }
 
+    function onChangeNewTaskTitle(taskId: string, newValueTitle: string, todolistId: string) {
+        let tasks = tasksObj[todolistId]; // Достаем нужный массив
+        let task = tasks.find(t => t.id === taskId)
+        if (task) {
+            task.title = newValueTitle
+            setTasksObj({...tasksObj})
+        }
+    }
+
+    function changeTodolistTitle(id: string, newTitle: string) {
+        let todolist = todoLists.find(tl => tl.id === id)
+        if (todolist) {
+            todolist.title = newTitle
+            setTodoList([...todoLists])
+        }
+
+    }
+
+
     return (
         <div className="App">
             <Box sx={{flexGrow: 1}}>
@@ -180,6 +199,8 @@ function App() {
                                               changeStatus={changeStatus}
                                               filter={tdl.filter}
                                               removeTodoList={removeTodoList}
+                                              changeTodolistTitle={changeTodolistTitle}
+                                              changeTaskTitle={onChangeNewTaskTitle}
                                     />
                                 </Paper>
                             </Grid>
