@@ -22,6 +22,7 @@ type PropsType = {
     filter: FilterValuesType
     id: string
     removeTodoList: (todolistId: string) => void
+    changeTodolistTitle:  (id: string, newTitle: string) => void
 }
 
 export function ToDoList(props: PropsType) {
@@ -37,6 +38,10 @@ export function ToDoList(props: PropsType) {
     const addTask = (title: string) => {
         props.addTask(title , props.id)
     }
+    const changeTodolistTitle = (newTitle: string) => {
+        props.changeTodolistTitle(props.id, newTitle)
+    }
+
     return (
         <div className={'App'}>
             <h1>{props.title}
@@ -71,7 +76,7 @@ export function ToDoList(props: PropsType) {
                                     sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
                                 />
                                 {/*  onChange={() => (t.isDone ? t.isDone = false : t.isDone = true)}/>*/}
-                                <EditableSpan title={t.title} editMode={} onChangeNewValue={}/>
+                                <EditableSpan title={t.title} editMode={false} onChangeNewValue={changeTodolistTitle}/>
                                 <span>{t.title}</span>
                                 {/*<button onClick={onRemoveHandler}>x</button>*/}
                                 <IconButton aria-label="delete" onClick={onRemoveHandler}>
@@ -105,4 +110,3 @@ export function ToDoList(props: PropsType) {
 }
 
 export default ToDoList;
-

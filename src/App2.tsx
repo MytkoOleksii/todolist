@@ -1,3 +1,4 @@
+
 import React, {useState} from 'react';
 import './App.css';
 import {TaskType, ToDoList} from "./ToDoList";
@@ -24,7 +25,7 @@ import {styled, useTheme} from '@mui/material/styles';
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 
 const drawerWidth = 240;
-
+/*
 //----------------------------------------------------------------//
 export  type  FilterValuesType = 'all' | 'completed' | 'active';
 
@@ -107,19 +108,19 @@ function App2() {
     };
 
 //--------------------------------  END  -----------------------------------------------------------------------//
-    /*
+    /!*
         let initTasks =  [
             {id:1, title: "CSS", isDone: true},
             {id:2, title: "JS", isDone: true},
             {id:3, title: "React", isDone: true},
             {id:4, title: "Redux", isDone: false}
         ]
-        */
-    /*
+        *!/
+    /!*
      let arr = useState(initTasks);
         let tasksObj = arr[0];
         let setTasksObj = arr[1];
-    */
+    *!/
 
     let todoListID1 = v1()
     let todoListID2 = v1()
@@ -131,7 +132,7 @@ function App2() {
 
     function addTask(textInput: any, todolistId: string) {
         //  tasksCopy.push(newTask)
-        /*   if (textInput.length > 0) {
+        /!*   if (textInput.length > 0) {
                let newTask = {
                    // id: props.tasksObj.length + 1,
                    id: v1(),
@@ -143,7 +144,7 @@ function App2() {
            } else {
                alert('You need write name tasksObj')
 
-           }*/
+           }*!/
         let newTask = {
             id: v1(),
             title: textInput,
@@ -171,12 +172,12 @@ function App2() {
     }
 
     function changeStatus(taskId: string, isDone: boolean, todolistId: string) {
-        /* let task = tasksObj.find( (t) => {
+        /!* let task = tasksObj.find( (t) => {
              if (t.id === taskId) {
              } else {
                  return false
              }`
-         });*/
+         });*!/
         let tasks = tasksObj[todolistId]; // Достаем нужный массив
         let task = tasks.find(t => t.id === taskId)
         if (task) {
@@ -325,3 +326,4 @@ function App2() {
 }
 
 //export default App2;
+*/
