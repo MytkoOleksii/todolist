@@ -35,12 +35,12 @@ function App() {
         let setTasksObj = arr[1];
     */
 
-    let todoListID1 = v1()
-    let todoListID2 = v1()
+    let todoListId1 = v1()
+    let todoListId2 = v1()
 
     let [todoLists, setTodoList] = useState<Array<TodoListType>>([
-        {id: todoListID1, title: 'Lessons1', filter: 'active'},
-        {id: todoListID2, title: 'Lessons2', filter: 'completed'}
+        {id: todoListId1, title: 'Lessons1', filter: 'active'},
+        {id: todoListId2, title: 'Lessons2', filter: 'completed'}
     ]);
 
     function addTask(textInput: any, todolistId: string) {
@@ -106,13 +106,13 @@ function App() {
         setTasksObj({...tasksObj})
     }
     let [tasksObj, setTasksObj] = useState<TaskStateType>({
-        [todoListID1]: [
+        [todoListId1]: [
             {id: v1(), title: "CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true},
             {id: v1(), title: "React", isDone: false},
             {id: v1(), title: "Redux", isDone: false},
         ],
-        [todoListID2]: [
+        [todoListId2]: [
             {id: v1(), title: "Milk", isDone: true},
             {id: v1(), title: "Book", isDone: true},
             {id: v1(), title: "Wood", isDone: false},
