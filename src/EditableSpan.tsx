@@ -41,7 +41,7 @@ export function EditableSpan(props: EditableSpanPropsType) {
                 autoFocus
 
                 id="outlined-multiline-flexible"
-                label="Write task"
+                label="Change task"
                 multiline
                 maxRows={4}
                 size={'small'}

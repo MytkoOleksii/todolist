@@ -30,6 +30,9 @@ export function AddItemForm(props: AddItemFormsPropsType) {
             setError('Title is required')
         }
     };
+    const onBlurClear = () => {
+        setTextInput('')
+    }
 
     return (
         <div>
@@ -43,13 +46,14 @@ export function AddItemForm(props: AddItemFormsPropsType) {
                 type={"text"} value={textInput as string}
                 onKeyPress={onKeyPressHandler}
                 onChange={onNewTitleChangeHandler}
-                error={!!error}
+                onBlur={onBlurClear}
+                error={!!error}/* !! - псевдо лож псевдо истина */
                 helperText={error}
 
                 id="outlined-multiline-flexible"
                 label="Write task"
                 multiline
-                maxRows={4}
+                maxRows={1}
                 size={'small'}
             />
           {/*  <Button variant="contained" color={'primary'} size={'medium'} onClick={addTask}>+</Button>*/}
