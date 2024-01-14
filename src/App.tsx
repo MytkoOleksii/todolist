@@ -33,14 +33,13 @@ function App() {
         let tasksObj = arr[0];
         let setTasksObj = arr[1];
     */
-    let todoListId1 = v1()
+    let todoListId1 = v1()// id
     let todoListId2 = v1()
 
     let [todoLists, setTodoList] = useState<Array<TodoListType>>([
         {id: todoListId1, title: 'Lessons1', filter: 'active'},
         {id: todoListId2, title: 'Lessons2', filter: 'completed'}
     ]);
-
     function addTask(textInput: any, todolistId: string) {
         //  tasksCopy.push(newTask)
         /*   if (textInput.length > 0) {

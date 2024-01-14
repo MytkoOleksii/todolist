@@ -4,7 +4,6 @@ type StateType ={
     name: string,
 
 }
-
 type ActionType = {
     type: string,
     [key: string] : any,
