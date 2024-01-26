@@ -13,16 +13,9 @@ export function AddItemForm(props: AddItemFormsPropsType) {
     const onNewTitleChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setTextInput(event.currentTarget.value)
     };
-    // Обработка нажатия ентер
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => { //
-        setError('')
-        if (e.charCode == 13 && textInput?.trim() !== '') {
-            props.addItem(textInput as string)
-            setTextInput('')
-        }
-    };
+
     // Отправка на добавление новой задачи
-    const addTask = () => { ///
+    const addTask = () => { //
         if (textInput?.trim() !== '') {
             props.addItem(textInput as string)
             setTextInput('')
@@ -30,9 +23,16 @@ export function AddItemForm(props: AddItemFormsPropsType) {
             setError('Title is required')
         }
     };
-    const onBlurClear = () => {
+    // Обработка нажатия ентер
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => { //
+        if (e.charCode == 13 && textInput?.trim() !== '') {
+            props.addItem(textInput as string)
+            setTextInput('')
+        }
+    };
+  /*  const onBlurClear = () => {
         setTextInput('')
-    }
+    }*/
 
     return (
         <div>
@@ -44,9 +44,9 @@ export function AddItemForm(props: AddItemFormsPropsType) {
             />*/}
             <TextField
                 type={"text"} value={textInput as string}
-                onKeyPress={onKeyPressHandler}
                 onChange={onNewTitleChangeHandler}
-                onBlur={onBlurClear}
+                onKeyPress={onKeyPressHandler}
+               // onBlur={onBlurClear}
                 error={!!error}/* !! - псевдо лож псевдо истина */
                 helperText={error}
 
