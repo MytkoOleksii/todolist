@@ -2,6 +2,7 @@ import {FilterValuesType, TodoListType} from "../App";
 //import {v1} from "uuid";
 import {v1} from "uuid"
 import {createStore} from "redux";
+import {useReducer} from "react";
 // "react-scripts": "^5.0.1",
 
 type StateType = {
@@ -34,8 +35,14 @@ type  ActionsType = AddTodolistActionType | ChangeTodolistTitleActionType | Chan
     type: string,
     [key: string]: any
 }*/
+export let todoListId1 = v1()// id
+export let todoListId2 = v1()
 
-export const todolistReducer= function (state: Array<TodoListType>,action: ActionsType): Array<TodoListType> {
+const initialState: Array<TodoListType> = [
+        {id: todoListId1, title: 'Lessons1', filter: 'active'},
+        {id: todoListId2, title: 'Lessons2', filter: 'completed'}
+    ]
+export const todolistReducer= function (state: Array<TodoListType> = initialState,action: ActionsType): Array<TodoListType> {
     switch (action.type) {
         case 'REMOVE-TODOLIST': {
            return state.filter((tl) => tl.id != action.id)
@@ -63,7 +70,8 @@ export const todolistReducer= function (state: Array<TodoListType>,action: Actio
             }
 
         default:
-            throw  new  Error(" I don't understate this action.")
+            //throw  new  Error(" I don't understate this action.") //old with Reducer from React
+            return state; // New , reducer from Redux
     }
 }
 
