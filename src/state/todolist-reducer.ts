@@ -1,7 +1,8 @@
 import {FilterValuesType, TodoListType} from "../App";
 //import {v1} from "uuid";
 import {v1} from "uuid"
-
+import {createStore} from "redux";
+// "react-scripts": "^5.0.1",
 
 type StateType = {
     age: number,
@@ -79,3 +80,4 @@ export const ChangeTodolistTitleAC = (id: string,title: string) : ChangeTodolist
 export  const ChangeTodolistFilterAC = (id: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
     return { type:'CHANGE-TODOLIST-FILTER', id: id, filter: filter }
 }
+

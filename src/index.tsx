@@ -4,11 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AppWithRedusers from "./AppWithRedusers";
+import AppWithRedux from "./AppWithRedux";
+import {Provider} from "react-redux";
+import {store} from "./state/store";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <AppWithRedusers/>
+    <Provider store={store}>
+        <AppWithRedux/>
+    </Provider>
 );
 reportWebVitals();
