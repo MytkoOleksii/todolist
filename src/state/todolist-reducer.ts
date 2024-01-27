@@ -1,4 +1,4 @@
-import {FilterValuesType, TodoListType} from "../App";
+import {FilterValuesType, TodoListType} from "../AppWithRedux";
 //import {v1} from "uuid";
 import {v1} from "uuid"
 import {createStore} from "redux";

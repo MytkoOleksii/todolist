@@ -1,4 +1,4 @@
-import {TodoListType} from "../App";
+import {TodoListType} from "../AppWithRedux";
 import {
     addTodolistAC, ChangeTodolistFilterAC,
     ChangeTodolistFilterActionType,
