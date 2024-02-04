@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useCallback, useState} from "react";
 import {Button, IconButton, TextField} from "@mui/material";
 import {AddCircleOutlineOutlined, AddCircleTwoTone} from "@mui/icons-material";
 
@@ -9,10 +9,11 @@ type AddItemFormsPropsType = {
 export function AddItemForm(props: AddItemFormsPropsType) {
     let [textInput, setTextInput] = useState<string | null>('');
     let [error, setError] = useState<string | null>(null) //
+
     // Обработка ввода текста
-    const onNewTitleChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const onNewTitleChangeHandler = useCallback( (event: ChangeEvent<HTMLInputElement>) => {
         setTextInput(event.currentTarget.value)
-    };
+    },[]);
 
     // Отправка на добавление новой задачи
     const addTask = () => { //
@@ -24,24 +25,18 @@ export function AddItemForm(props: AddItemFormsPropsType) {
         }
     };
     // Обработка нажатия ентер
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => { //
+    const onKeyPressHandler =  (e: KeyboardEvent<HTMLInputElement>) => { //
+        if (error !== null) {
+            setError(null)
+        }
         if (e.charCode == 13 && textInput?.trim() !== '') {
             props.addItem(textInput as string)
             setTextInput('')
         }
     };
-  /*  const onBlurClear = () => {
-        setTextInput('')
-    }*/
 
     return (
         <div>
-            {/*<input type={"text"} onChange={(event)=> setTextInput(event.target.value)} value={textInput as string} />*/}
-          {/*  <input type={"text"} value={textInput as string}
-                   onKeyPress={onKeyPressHandler}
-                   onChange={onNewTitleChangeHandler}
-                   className={error ? 'error' : ''}
-            />*/}
             <TextField
                 type={"text"} value={textInput as string}
                 onChange={onNewTitleChangeHandler}
@@ -56,10 +51,7 @@ export function AddItemForm(props: AddItemFormsPropsType) {
                 maxRows={1}
                 size={'small'}
             />
-          {/*  <Button variant="contained" color={'primary'} size={'medium'} onClick={addTask}>+</Button>*/}
             <IconButton onClick={addTask} color={'primary'} size={"large"}  ><AddCircleOutlineOutlined fontSize={"inherit"}/></IconButton>
-
-            {/* {error && <div className={'error-messages'}>{error}</div>} // заменил helpertext */}
         </div>
     )
 }

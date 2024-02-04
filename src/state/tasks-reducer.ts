@@ -63,7 +63,6 @@ export const tasksReducer = function (state: TaskStateType = initialState, actio
         }
         case 'CHANGE-TASK-STATUS' : {
             let stateCopy = {...state};
-            console.log(stateCopy + " start")
             let tasks = stateCopy[action.todolistId]; // Достаем нужный массив
             stateCopy[action.todolistId] = tasks.map(t => t.id === action.taskId ? {...t, isDone: action.isDone} : t)
             /*let task = tasks.find(t => t.id === action.taskId)
@@ -71,19 +70,21 @@ export const tasksReducer = function (state: TaskStateType = initialState, actio
                 task.isDone = action.isDone
                 stateCopy[action.todolistId]={...tasks}
             }*/
-            console.log(stateCopy + " finish")
-
             return stateCopy;
-
         }
         case 'CHANGE-TASK-TITLE' : {
-            let stateCopy = {...state};
+
+            let stateCopy = state[action.todolistId]; // Достаем нужный массив
+            state[action.todolistId] = stateCopy.map(t => t.id === action.taskId ? {...t, title: action.title} : t)
+            return ({...state});
+
+          /*  let stateCopy = {...state};
             let tasks = stateCopy[action.todolistId]
             let task = tasks.find(tl => tl.id === action.taskId)
             if (task) {
                 task.title = action.title;
             }
-            return stateCopy
+            return stateCopy*/
         }
         case 'ADD-TODOLIST' : {
             const stateCopy = {...state}

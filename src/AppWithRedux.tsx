@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useCallback, useReducer, useState} from 'react';
 import './App.css';
 import {ToDoList} from "./ToDoList";
 import {TaskType} from "./ToDoList";
@@ -55,23 +55,21 @@ function AppWithRedux() {
        }*/
 
 //--------------------- Todolist ---------------------------------------------------------------------//
-  function changeFilter(value: FilterValuesType, todoListId: string) {
+  const changeFilter= useCallback(function(value: FilterValuesType, todoListId: string) {
         let actions = ChangeTodolistFilterAC(todoListId, value)
         dispatch(actions)
-    }
+    },[]);
 
-
-    function addTodolist(title: string) {
+  // Додавання тексту
+    const  addTodolist = useCallback(function (title: string)  {
         let actions = addTodolistAC(title)
         dispatch(actions)
-    }
+    },[]);
 
-
-    function changeTodolistTitle(id: string, newTitle: string) {
+    const changeTodolistTitle = useCallback(function(id: string, newTitle: string) {
         let actions = ChangeTodolistTitleAC(id, newTitle)
         dispatch(actions)
-    }
-
+    },[]);
 
     return (
         <div className="App">
@@ -97,7 +95,7 @@ function AppWithRedux() {
             <Container fixed>
 
                 <Grid container style={{padding: '10px'}}>
-                    <AddItemForm addItem={addTodolist}/>
+                    <AddItemForm addItem={addTodolist} />
                 </Grid>
                 <Grid container spacing={3}>
                     {

@@ -1,13 +1,14 @@
-import React, {ChangeEvent} from "react";
-import {FilterValuesType, TaskStateType} from "./AppWithRedux";
+import React, {useCallback} from "react";
+import {FilterValuesType} from "./AppWithRedux";
 import {AddItemForm} from "./AddItemForm";
-import {Button, Checkbox, IconButton} from "@mui/material";
+import {Button, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {EditableSpan} from "./EditableSpan";
 import {useDispatch, useSelector} from "react-redux";
 import {removeTodolistAC} from "./state/todolist-reducer";
 import {AppRootStateType} from "./state/store";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {addTaskAC} from "./state/tasks-reducer";
+import {Task} from "./Task";
 
 export type  TaskType = {
     id: string
@@ -22,9 +23,11 @@ type PropsType = {
     changeTodolistTitle:  (id: string, newTitle: string) => void
 }
 
-export function ToDoList(props: PropsType) {
+export const ToDoList = React.memo( function (props: PropsType) {
 
     const dispatch = useDispatch();
+
+    const addTask = useCallback((title: string) => {dispatch(addTaskAC(props.id,title))},[])
 
 //-------------------------------------------------------------------------------//
     const tasks = useSelector<AppRootStateType,Array<TaskType>>(state => state.tasks[props.id])
@@ -77,11 +80,30 @@ export function ToDoList(props: PropsType) {
                     <Delete />
                 </IconButton>
             </h1>
-            <AddItemForm addItem={(title) => {dispatch(addTaskAC(props.id,title))}} />
+            <AddItemForm addItem={addTask} />
             <ul>
                 {
-                    tasksForTodolist.map(t => {
-                        function onRemoveHandler() {
+                    tasksForTodolist.map(t => <Task key={t.id} t={t} id={props.id} dispatch={dispatch}/>)
+                }
+            </ul>
+            <div>
+                <Button color={"inherit"} variant={props.filter === "all" ? "contained" : "text"} onClick={onAllClickHandler}>All
+                </Button>
+                <Button color={'primary'} variant={props.filter === 'active' ? 'contained' : 'text'}
+                        onClick={onActiveClickHandler}>Active
+                </Button>
+                <Button color={"error"} variant={props.filter === 'completed' ? 'contained' : 'text'}
+                        onClick={onCompletedClickHandler}>Completed
+                </Button>
+            </div>
+        </div>
+    )
+} );
+
+export default ToDoList;
+/*
+
+                       function onRemoveHandler() {
                             dispatch(removeTaskAC(props.id,t.id))
                           //  props.removeTask(t.id, props.id)
                         }
@@ -101,8 +123,6 @@ export function ToDoList(props: PropsType) {
                                 <Checkbox
                                     checked={t.isDone}
                                     onChange={onChangeHandler}
-
-                                    defaultChecked
                                     sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
                                 />
                                 <EditableSpan title={t.title} editMode={true} onChangeNewValue={onChangeNewTitle}/>
@@ -110,22 +130,4 @@ export function ToDoList(props: PropsType) {
                                     <Delete />
                                 </IconButton>
                             </div>
-                        )
-                    })
-                }
-            </ul>
-            <div>
-                <Button color={"inherit"} variant={props.filter === "all" ? "contained" : "text"} onClick={onAllClickHandler}>All
-                </Button>
-                <Button color={'primary'} variant={props.filter === 'active' ? 'contained' : 'text'}
-                        onClick={onActiveClickHandler}>Active
-                </Button>
-                <Button color={"error"} variant={props.filter === 'completed' ? 'contained' : 'text'}
-                        onClick={onCompletedClickHandler}>Completed
-                </Button>
-            </div>
-        </div>
-    )
-}
-
-export default ToDoList;
+                        )*/
